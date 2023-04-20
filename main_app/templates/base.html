@@ -1,0 +1,49 @@
+{% load static %}
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Safetea.</title>
+</head>
+<body>
+    <header class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a class ="center brand-logo" href="/">Safetea.</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>
+                        <a class="dropdown-button" href="/about" data-activates="javaDropDown">Community Guidelines
+                            <i class="material-icons right">arrow_drop_down</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-button" href="/posts" data-activates="javaDropDown">View All Posts
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                    </li>
+                    <li>
+                        </a>
+                    </li>
+                    <li>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="page-footer">
+        <p>Copyright &copy; All Rights Reserved Safetea. 2023</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Safetea.</h1>
+
+    {% for post in posts %}
+        <div class="card">
+            <span class="card-content">{{ post.name }}</span>
+            <p>City: {{ post.city }}</p>
+            <p>Description: {{ post.description }}</p>
+            {% if post.age > 18 %}
+                <p>Age: {{ post.age }}</p>
+            {% else %}
+                <p>Age: minor</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
