@@ -3,8 +3,7 @@ from .models import Post
 from main_app.forms import PostForm
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm
-
+from .forms import CustomUserCreationForm, PostForm
 
 def home(request):
     return render(request, 'home.html')
@@ -24,7 +23,7 @@ def add_post(request):
             return redirect('/posts/')
     else:
         form = PostForm()
-    return render(request, 'main_app/add_post.html', {'form': form})
+    return render(request, 'posts/add_post.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':

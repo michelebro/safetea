@@ -9,10 +9,31 @@
             <p>City: {{ post.city }}</p>
             <p>Description: {{ post.description }}</p>
             <p>Age: {{ post.age }}</p>
+
+            <h2>Comments</h2>
+            {% for comment in post.comments.all %}
+                <div class="comment">
+                    <p>{{ comment.user.username }} says:</p>
+                    <p>{{ comment.text }}</p>
+                </div>
+            {% empty %}
+                <p>No comments yet.</p>
+            {% endfor %}
+
+            <form method="POST" action="{% url 'add_comment' post.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="comment-text">Add a comment:</label>
+                    <textarea class="form-control" id="comment-text" name="comment-text" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
             <form method="POST" action="{% url 'delete_post' post.id %}">
                 {% csrf_token %}
-                <button type="submit">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
     {% endfor %}
 {% endblock %}
+
