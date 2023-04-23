@@ -8,11 +8,11 @@
             <span class="card-content">{{ post.name }}</span>
             <p>City: {{ post.city }}</p>
             <p>Description: {{ post.description }}</p>
-            {% if post.age > 18 %}
-                <p>Age: {{ post.age }}</p>
-            {% else %}
-                <p>Age: minor</p>
-            {% endif %}
+            <p>Age: {{ post.age }}</p>
+            <form method="POST" action="{% url 'delete_post' post.id %}">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
         </div>
     {% endfor %}
 {% endblock %}

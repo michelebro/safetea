@@ -1,0 +1,7 @@
+<h1>Delete "{{ post.name }}"?</h1>
+
+<form action="{% url 'delete_post' post.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+    <a href="{% url 'post_list' %}">Cancel</a>
+</form>
