@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from main_app.forms import PostForm
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import authenticate, login
+from .forms import CustomUserCreationForm
 
 
 def home(request):
@@ -20,7 +21,7 @@ def add_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             post = form.save()
-            return redirect('posts/index.html')
+            return redirect('/posts/')
     else:
         form = PostForm()
     return render(request, 'main_app/add_post.html', {'form': form})
@@ -39,26 +40,21 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
 
+
 def signup(request):
-    error_message = ''
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid() and form.cleaned_data['gender'] == 'F' and form.cleaned_data['age'] >= 13:
             user = form.save()
             login(request, user)
-            return redirect('home.html')
-        else:
-            print(form.errors)
-            error_message = 'Invalid sign up - try again'
-    form = UserCreationForm()
-    return render(request, 'registration/signup.html', {
-        'form': form, 
-        'error': error_message 
-    })
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         post.delete()
-        return redirect('delete_post')
-    return render(request, 'posts/delete_post.html', {'post': post})
+        return redirect('posts/index.html')
+    return render(request, 'posts/index.html', {'post': post})

@@ -13,7 +13,34 @@
 
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="mb-3">
+        {{ form.first_name.label_tag }}
+        {{ form.first_name }}
+    </div>
+    <div class="mb-3">
+        {{ form.last_name.label_tag }}
+        {{ form.last_name }}
+    </div>
+    <div class="mb-3">
+        {{ form.username.label_tag }}
+        {{ form.username }}
+    </div>
+    <div class="mb-3">
+        {{ form.password1.label_tag }}
+        {{ form.password1 }}
+    </div>
+    <div class="mb-3">
+        {{ form.password2.label_tag }}
+        {{ form.password2 }}
+    </div>
+    <div class="mb-3">
+        {{ form.gender.label_tag }}
+        {{ form.gender }}
+    </div>
+    <div class="mb-3">
+        {{ form.age.label_tag }}
+        {{ form.age }}
+    </div>
     <input type="submit" value="Signup" class="btn blue">
 </form>
 {% endblock %}
