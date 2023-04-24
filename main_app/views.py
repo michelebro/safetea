@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post
+from .models import Post, Comment
 from main_app.forms import PostForm
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import authenticate, login
-from .forms import CustomUserCreationForm, PostForm
+from django.contrib import messages
+from .forms import CustomUserCreationForm, PostForm, CommentForm
+from django.http import JsonResponse
 
 def home(request):
     return render(request, 'home.html')
@@ -57,3 +59,27 @@ def delete_post(request, pk):
         post.delete()
         return redirect('posts/index.html')
     return render(request, 'posts/index.html', {'post': post})
+
+def add_comment(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            messages.success(request, 'Your comment was added successfully!')
+            return JsonResponse({
+                'success': True,
+                'comment_html': render_to_string('posts/comment.html', {'comment': comment})
+            })
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        form = CommentForm()
+    return render(request, 'posts/index.html', {'form': form, 'post': post})
+
+
+
+
+

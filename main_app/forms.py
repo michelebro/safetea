@@ -2,6 +2,8 @@ from django import forms
 from main_app.models import Post
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Comment
+
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -23,3 +25,12 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = UserCreationForm.Meta.fields + ('gender', 'age', 'first_name', 'last_name',)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('user', 'text')
+        widgets = {
+            'user': forms.TextInput(attrs={'class': 'form-control'}),
+            'text': forms.Textarea(attrs={'class': 'form-control'}),
+        }

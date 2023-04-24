@@ -10,7 +10,6 @@
             <p>Description: {{ post.description }}</p>
             <p>Age: {{ post.age }}</p>
 
-            <h2>Comments</h2>
             {% for comment in post.comments.all %}
                 <div class="comment">
                     <p>{{ comment.user.username }} says:</p>
@@ -34,6 +33,34 @@
                 <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
+
+        <script>
+            // Handle the comment form submission
+            $('#comment-form').on('submit', function(event) {
+              event.preventDefault(); // Prevent the form from submitting normally
+              var form = $(this); // Get the form element
+              $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                dataType: 'json',
+                success: function(response) {
+                  if (response.success) {
+                    // If the comment was added successfully, append the new comment to the comments container
+                    $('#comments-container').append(response.comment_html);
+                    form.trigger('reset'); // Reset the comment form
+                  } else {
+                    // If there was an error, display the form errors
+                    alert('There was an error adding your comment: ' + response.errors);
+                  }
+                },
+                error: function() {
+                  alert('There was an error adding your comment. Please try again later.');
+                }
+              });
+            });
+            </script>
+        
     {% endfor %}
 {% endblock %}
 

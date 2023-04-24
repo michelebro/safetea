@@ -11,4 +11,5 @@ urlpatterns= [
     path('login/', login_view, name='login'),
     path('signup/', views.signup, name='signup'),
     path('post/<int:pk>/delete/', delete_post, name='delete_post'),
+    path('add-comment/<int:post_id>/', views.add_comment, name='add_comment'),
 ]
