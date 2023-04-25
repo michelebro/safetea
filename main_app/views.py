@@ -36,7 +36,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home.html')
+                return redirect('about')
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -48,7 +48,7 @@ def signup(request):
         if form.is_valid() and form.cleaned_data['gender'] == 'F' and form.cleaned_data['age'] >= 13:
             user = form.save()
             login(request, user)
-            return redirect('home')
+            return redirect('about')
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})

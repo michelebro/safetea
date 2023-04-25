@@ -4,8 +4,8 @@ from .views import add_post, login_view, delete_post
 
 
 urlpatterns= [
-    path('', views.home),
-    path('about/', views.about),
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
     path('posts/', views.post_list),
     path('add_post/', add_post, name='add_post'),
     path('login/', login_view, name='login'),
