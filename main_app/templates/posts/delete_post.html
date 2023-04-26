@@ -3,5 +3,5 @@
 <form action="{% url 'delete_post' post.pk %}" method="post">
     {% csrf_token %}
     <input type="submit" value="Delete">
-    <a href="{% url 'post_list' %}">Cancel</a>
+    <a href="{% url 'posts' %}">Cancel</a>
 </form>

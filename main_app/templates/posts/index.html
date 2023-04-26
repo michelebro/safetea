@@ -5,7 +5,10 @@
 
     {% for post in posts %}
         <div class="card">
-            <span class="card-content">{{ post.name }}</span>
+            <span class="card-content"><h3>{{ post.name }}</h3></span>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.name }}">
+        {% endif %}
             <p>City: {{ post.city }}</p>
             <p>Description: {{ post.description }}</p>
             <p>Age: {{ post.age }}</p>

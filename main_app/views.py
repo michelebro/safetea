@@ -2,26 +2,33 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Comment
 from main_app.forms import PostForm
 from django.contrib.auth.forms import AuthenticationForm 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CustomUserCreationForm, PostForm, CommentForm
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def about(request):
     return render(request, 'about.html')
 
+@login_required
 def post_list(request):
     posts = Post.objects.all()
     return render(request, 'posts/index.html', {'posts': posts})
 
+@login_required
 def add_post(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.save()
             return redirect('/posts/')
     else:
         form = PostForm()
@@ -53,13 +60,15 @@ def signup(request):
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+@login_required
 def delete_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         post.delete()
-        return redirect('posts/index.html')
+        return redirect('posts')
     return render(request, 'posts/index.html', {'post': post})
 
+@login_required
 def add_comment(request, post_id):
     post = Post.objects.get(id=post_id)
     if request.method == 'POST':
@@ -79,6 +88,10 @@ def add_comment(request, post_id):
         form = CommentForm()
     return render(request, 'posts/index.html', {'form': form, 'post': post})
 
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 
