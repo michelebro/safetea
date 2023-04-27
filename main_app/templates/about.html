@@ -3,26 +3,43 @@
 
 {% block content %}
 <style>
-    .guidelines {
-        background: rgba(171, 209, 198, 0.95);
-        border: 1px solid rgba(14, 23, 44, 0.7); 
-    }
-    h2 {
-        font-weight: 520;
-    }
-    .agree {
-        display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          align-items: center;
+ body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            align-items: center;
+            background-color: #FEC7D7; 
+            color: #0e172c;
+            font-family: Optima;
+         
         }
-    
-</style>
+        header {
+            background-color: #0e172c !important;
+        }
+        .guidelines {
+            background: rgba(171, 209, 198, 0.95);
+            border: 1px solid rgba(14, 23, 44, 0.7); 
+            margin: 2%;
+            padding: 2%;
+        }
+        h2 {
+            font-weight: 520;
+        }
+        .agree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            margin: 3%;
+        }
+        </style>
 <div class="agree">
-    <h1 style="color: white; font-family: Lily Script One;">Welcome {{ user.first_name }}</h1>
     <img src="/static/img/dalogo.png" alt="Safetea">
-    <h2>We have a few guidelines you must agree to continue:</h2>
+    <h2>Guidelines:</h2>
     <div class="scroll">
     <ol type="I" class="guidelines">
         <li><h3>Posting Guidelines</h3> 
@@ -36,35 +53,6 @@
         <li><h3>No Contacting Subjects of Posts</h3>
             <p>Do NOT contact men who have been posted. You will be putting our members in danger. We are here to WARN women, NOT teach men a lesson. Any member who contacts a posted subject will be automatically banned.</p></li>
     </ol>
-    </div>
-    <p>
-        <label>
-            <input type="checkbox" id="agree" />
-            <span>By checking this box, I agree to these guidelines.</span>
-          </label>
-          <p>
-            <a id="enter-btn" href="{% url 'posts' %}">
-              <button disabled>Enter</button>
-            </a>
-          </p>
-          
-          <style>
-            #enter-btn[disabled] {
-              pointer-events: none;
-            }
-          </style>
-          
-          <script>
-            const checkbox = document.getElementById('agree');
-            const button = document.querySelector('#enter-btn button');
-          
-            checkbox.addEventListener('change', function() {
-              if (this.checked) {
-                button.disabled = false;
-              } else {
-                button.disabled = true;
-              }
-            });
-          </script>      
+    </div>     
 </div>
  {% endblock %}
