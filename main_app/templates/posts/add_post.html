@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Add a new post</h1>
+
+<style>
+div.scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #FEC7D7; 
+    color: #0e172c;
+    font-family: Optima;
+}
+main {
+    flex-grow: 1;
+}
+label, input.form-control {
+    color:#0e172c;
+}
+button {
+    background-color: #abd1c6;
+}
+form {
+    box-sizing: border-box;
+    background: rgba(171, 209, 198, 0.95);
+    border: 1px solid rgba(14, 23, 44, 0.7);;
+    padding: 2%;
+}
+</style>
+<div class="scroll">
+    <h1>Create New Post</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
@@ -23,7 +52,8 @@
         <div class="form-group">
             <label for="image">Image:</label>
             <input type="file" name="image" class="form-control-file">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        </div></form>
+        <button type="submit">Submit</button>
+</div>
+    
 {% endblock %}
