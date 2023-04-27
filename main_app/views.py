@@ -28,6 +28,7 @@ def add_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
+            post.rating = form.cleaned_data['rating']
             post.save()
             return redirect('/posts/')
     else:

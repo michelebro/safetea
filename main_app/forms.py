@@ -2,14 +2,29 @@ from django import forms
 from main_app.models import Post
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Comment
+from .models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
+    RATING_CHOICES = [
+        (1, '1 star'),
+        (2, '2 stars'),
+        (3, '3 stars'),
+        (4, '4 stars'),
+        (5, '5 stars'),
+    ]
+    rating = forms.ChoiceField(choices=RATING_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+
     class Meta:
         model = Post
-        fields = ('name', 'city', 'age', 'description', 'image')
-        
+        fields = ['name', 'city', 'age', 'description', 'image', 'rating']
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your name'}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter your city'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter your age'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter a description'}),
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
 
 class CustomUserCreationForm(UserCreationForm):
     GENDER_CHOICES = (

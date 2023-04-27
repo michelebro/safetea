@@ -10,6 +10,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+    rating = models.IntegerField(default=0)
 
 
 class Comment(models.Model):

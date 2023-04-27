@@ -22,7 +22,7 @@ body {
     align-items: center;
     justify-content: center;
     align-items: center;
-  height: 100vh;
+    height: 100vh;
     background-color: #FEC7D7; 
     color: #0e172c;
     font-family: Optima;}
@@ -41,9 +41,9 @@ button {
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Login" class="login"><br>
+    <input type="submit" value="Login" class="login"><br><br>
 
-    <a href="{% url 'signup' %}">create account</a>
+    <a href="{% url 'signup' %}">create account</a><br><br>
 </form>
 <footer>
     <p>&copy; 2023 Safetea Inc.</p>
